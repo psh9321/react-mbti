@@ -1,0 +1,44 @@
+.introduce {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.introduce .main dt {
+    font-size: 3rem;
+}
+
+.introduce .main dd {
+    margin-top: 15px;
+    font-size: 1.8rem;
+}
+
+@media all and (max-width:800px) {
+    .introduce .main dt {
+        font-size: 2.4rem;
+    }
+
+    .introduce .main dd { 
+        font-size: 1.4rem;
+    }
+}
+
+@media all and (max-width:600px)  {
+    .introduce .main dd { 
+        margin-top: 10px;
+        font-size: 1.2rem;
+    }
+}
+
+@media all and (max-width:499px) {
+    .introduce .main dt {
+        font-size: 1.8rem;
+    }
+    
+    .introduce .main dd {
+        line-height: 1.5;
+        padding: 0 20px;
+        font-size: 1.1rem;
+        word-break: keep-all;
+
+    }
+}

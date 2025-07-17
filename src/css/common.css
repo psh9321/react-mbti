@@ -1,0 +1,28 @@
+body {
+    color: #2E2819;
+    background-color: #FDF8E6;
+    overflow-x: hidden;
+}
+
+.copyRight {
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding-top: 40px;
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    background-color: #222;
+}
+
+.copyRight span {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+@media all and (max-width : 499px) {
+    .copyRight {
+        font-size: 1.4rem;
+    }
+} 

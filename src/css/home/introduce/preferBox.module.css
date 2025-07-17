@@ -1,0 +1,138 @@
+.preferBox {
+    margin: 100px 0;
+}
+
+.preferBox > h3 {
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+}
+
+.indicatorList li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.indicatorList li:nth-child(n+2) {
+    margin-top: 20px;
+}
+
+.indicatorList li h3 {
+    order: 2;
+    display: flex;
+    align-items: center;
+}
+
+.indicatorList li h3 span {
+    width: 83px;
+    font-size: 1.6rem;
+}
+
+.indicatorList li h3 svg {
+    margin: 0 30px;
+}
+
+.indicatorList li h3 svg:first-child { stroke: #8F58AE; }
+
+.indicatorList li p {
+    display: block;
+    width: 48px;
+    font-size: 1.8rem;
+    opacity: 0;
+}
+
+.indicatorList li p.left {
+    order: 1;    
+}
+
+.indicatorList li p.right {
+    order: 3;
+}
+
+.indicatorList li p.left.active {
+	-webkit-animation: slide-in-left 0.25s forwards;
+    animation: slide-in-left 0.25s forwards;
+}
+
+.indicatorList li p.right.active {
+	-webkit-animation: slide-in-right 0.25s forwards;
+    animation: slide-in-right 0.25s forwards;
+}
+
+
+@-webkit-keyframes slide-in-left {
+    0% {
+        -webkit-transform: translateX(-1000px);
+                transform: translateX(-1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-left {
+    0% {
+        -webkit-transform: translateX(-1000px);
+                transform: translateX(-1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+ @-webkit-keyframes slide-in-right {
+    0% {
+        -webkit-transform: translateX(1000px);
+                transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-right {
+    0% {
+        -webkit-transform: translateX(1000px);
+                transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media all and (max-width : 499px) {
+
+    .preferBox {
+        margin: 50px 0;
+    }
+
+    .preferBox > h3 {
+
+    }
+
+    .indicatorList li h3 span {
+        font-size: 1.4rem;
+    }
+
+    .indicatorList li p {
+        font-size: 1.6rem;
+    }
+
+    .indicatorList li h3 svg {
+        margin: 0 15px;
+        size: 40px;
+    }
+}
+  
+  

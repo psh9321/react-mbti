@@ -1,0 +1,123 @@
+@font-face {
+    font-family: 'main';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2503@1.0/SinchonRhapsody.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'basic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2505-1@1.0/SeoulAlrimTTF-Heavy.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+.contentsBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.chapter01 .contentsBox dl {
+    margin-right: 40px;
+    font-family: "main";
+}
+
+.chapter01 .contentsBox dl dt {
+    margin-bottom: 20px;
+    font-size: 11rem;
+  }
+
+.chapter01 .contentsBox dl dd {
+    line-height: 1.4;
+    font-size: 2rem;
+}
+
+.chapter01 .contentsBox dl dd a {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.chapter01 .contentsBox img {
+    width: 650px;
+}
+
+.chapter02 .contentsBox {
+    flex-direction: column;
+    height: 100dvh;
+    transition: 0.25s ease;
+}
+
+.chapter02 .contentsBox dl {
+    text-align: center;
+    font-family: "basic";
+}
+
+.chapter02 .contentsBox dl dt {
+    font-size: 2rem;
+}
+
+.chapter02 .contentsBox dl dd {
+    margin: 10px 0 50px;
+    font-size: 1.2rem;
+}
+
+.chapter02 .contentsBox img {
+    width: 760px;
+}
+
+@media all and (max-width : 1200px) {
+    .chapter01 .contentsBox dl dt {
+        font-size: 7rem;
+    }
+
+    .chapter01 .contentsBox dl dd {
+        line-height: 1.4;
+    }
+
+    .chapter01 .contentsBox img {
+        width: 400px;
+    }
+}
+
+@media all and (max-width : 900px) {
+    .chapter02 .contentsBox dl dt {
+      font-size: 1.8rem;
+    }
+
+    .chapter02 .contentsBox dl dd {
+      font-size: 2.1vw;
+    }
+
+    .chapter02 .contentsBox img {
+      width: calc(100% - 10vw);
+    }
+}
+
+@media all and (max-width : 750px) {
+
+    .chapter01 .contentsBox {
+        flex-direction: column;
+    }
+
+    .chapter01 .contentsBox dl {
+        margin-right: 0;    
+    }
+
+    .chapter01 .contentsBox img {
+        width: 450px;
+    }
+}
+
+@media all and (max-width : 499px) {
+    .chapter01 .contentsBox img {
+        width: 100%;
+    }
+}

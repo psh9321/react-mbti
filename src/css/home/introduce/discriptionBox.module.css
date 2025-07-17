@@ -1,0 +1,112 @@
+.discriptionList {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+    opacity: 0;
+}
+
+.discriptionList li {
+    width: 30%;
+    padding: 30px 50px 100px;
+    text-align: left;
+    border: 1px solid #222;
+    border-radius: 5px;
+}
+
+.discriptionList li:nth-child(2) {
+    margin: 0 20px;
+}
+
+.discriptionList li dl dt {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    word-break: keep-all;
+}
+
+.discriptionList li dl dd {
+    line-height: 1.5;
+    font-size: 1.8rem;
+    word-break: keep-all;
+}
+
+.active {
+	-webkit-animation: slide-in-bottom 0.5s forwards;
+    animation: slide-in-bottom 0.5s forwards;
+}
+
+@-webkit-keyframes slide-in-bottom {
+    0% {
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-bottom {
+    0% {
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1;
+    }
+}
+  
+@media all and (max-width : 1000px) {
+    .discriptionList li {
+        padding: 30px 25px 100px;
+    }
+
+    .discriptionList li dl dd {
+        font-size: 1.4rem;
+    }
+}
+
+@media all and (max-width : 680px) {
+
+    .discriptionList li {
+        padding: 30px 10px 100px;
+    }
+
+    .discriptionList li:nth-child(2) {
+        margin: 0 10px;   
+    }
+
+    .discriptionList li dl dd {
+        font-size: 1.2rem;
+    }
+}
+
+@media all and (max-width : 499px) {
+    .discriptionList {
+        flex-direction: column;
+        margin-bottom: 70px;
+        padding: 0 20px;
+    }
+
+    .discriptionList li {
+        width: 100%;
+        padding: 30px 25px 60px;
+    }
+
+    .discriptionList li:nth-child(2) {
+        margin: 0;
+    }
+
+    .discriptionList li:nth-child(n+2) {
+        margin-top: 15px;
+    }
+
+    .discriptionList li dl dd {
+        word-break: keep-all;
+    }
+
+    
+}
