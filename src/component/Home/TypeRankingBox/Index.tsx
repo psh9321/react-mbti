@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 
-import style from "@/css/home/introduce/TypeRankingTable.module.css"
+import style from "@/css/home/introduce/typeRankingTable.module.css"
 
 import { RangkingTable } from "./TypeRankingTable"
 import { TestBtn } from "../MainBanner/TestBtn"
