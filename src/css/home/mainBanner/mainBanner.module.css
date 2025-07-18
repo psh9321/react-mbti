@@ -118,6 +118,6 @@
 
 @media all and (max-width : 499px) {
     .chapter01 .contentsBox img {
-        width: 100%;
+        width: calc(100% - 100px);
     }
 }
