@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es2025",
+        "module": "es2015",
+        "moduleResolution": "bundler",
+        "types": ["node"],
+        "outDir": "./dist",
+        "rootDir": ".",
+        "paths": {
+            "@/*" : ["./*"]
+        },
+        "strict": true,
+    },
+    "include": ["./**/*.ts", "../types"],
+}

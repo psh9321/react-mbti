@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+    --color-color-main : #C57C2D;
+    --color-color-sub : #D5A36A;
+    --color-color-basic : #2a0200;
+}
+
+@font-face {
+    font-family : "main";
+    src : url("../font/main.ttf")
+}
+
+@font-face {
+    font-family : "basic";
+    src : url("../font/basic.ttf")
+}
+
+body {
+    color: var(--color-color-basic);
+    font-family: basic;
+    background-color: #FDF8E6;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}

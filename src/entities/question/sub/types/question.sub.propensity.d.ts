@@ -1,0 +1,5 @@
+declare global {
+    type API_CLIENT_GET_QUESTION_SUB_PROPENSITY = API.RESPONSE_MODEL<QUESTION.ITEM[]>;
+}
+
+export {}
