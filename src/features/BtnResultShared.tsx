@@ -11,7 +11,7 @@ export const BtnResultShared = () => {
             content: {
                 title: `MBTI 테스트 결과 : ${type?.toString()}`,
                 description: `${subTitle}`,
-                imageUrl: `${window.location.origin}/img/mbti/${type?.toString()}.webp?v=1`,
+                imageUrl: `${window.location.origin}/mbti/${type?.toString()}.webp?v=1`,
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,

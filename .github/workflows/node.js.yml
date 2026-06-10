@@ -120,7 +120,9 @@ jobs:
           ssh -i ~/.ssh/ec2_key.pem "${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}" << 'EOF'
             set -e
             cd "${{ secrets.EC2_APP_DIR }}"
-            corepack enable
+            mkdir -p "$HOME/.local/bin"
+            export PATH="$HOME/.local/bin:$PATH"
+            corepack enable --install-directory "$HOME/.local/bin"
             corepack prepare pnpm@10 --activate
             pnpm install --frozen-lockfile
             pnpm build
