@@ -41,21 +41,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bump dist version
-        run: |
-          node <<'NODE'
-          const fs = require("fs");
-          const file = "version.json";
-          const version = JSON.parse(fs.readFileSync(file, "utf8"));
-          const key = Object.prototype.hasOwnProperty.call(version, "DIST_VER") ? "DIST_VER" : "dist_ver";
-          const parts = String(version[key] ?? "0").split(".");
-          const lastIndex = parts.length - 1;
-          parts[lastIndex] = String((Number(parts[lastIndex]) || 0) + 1);
-          version[key] = parts.join(".");
-          fs.writeFileSync(file, JSON.stringify(version, null, 2) + "\n");
-          console.log(key + "=" + version[key]);
-          NODE
-
       - name: Build
         run: pnpm build
 
@@ -67,29 +52,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Bump dist version
-        run: |
-          node <<'NODE'
-          const fs = require("fs");
-          const file = "version.json";
-          const version = JSON.parse(fs.readFileSync(file, "utf8"));
-          const key = Object.prototype.hasOwnProperty.call(version, "DIST_VER") ? "DIST_VER" : "dist_ver";
-          const parts = String(version[key] ?? "0").split(".");
-          const lastIndex = parts.length - 1;
-          parts[lastIndex] = String((Number(parts[lastIndex]) || 0) + 1);
-          version[key] = parts.join(".");
-          fs.writeFileSync(file, JSON.stringify(version, null, 2) + "\n");
-          console.log(key + "=" + version[key]);
-          NODE
-
-      - name: Commit dist version
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add version.json
-          git commit -m "chore: bump dist version [skip ci]"
-          git push origin HEAD:master
 
       - name: Configure SSH
         run: |
@@ -128,3 +90,26 @@ jobs:
             pnpm build
             pnpm reload || pnpm start
           EOF
+
+      - name: Bump dist version
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const file = "version.json";
+          const version = JSON.parse(fs.readFileSync(file, "utf8"));
+          const key = Object.prototype.hasOwnProperty.call(version, "DIST_VER") ? "DIST_VER" : "dist_ver";
+          const parts = String(version[key] ?? "0").split(".");
+          const lastIndex = parts.length - 1;
+          parts[lastIndex] = String((Number(parts[lastIndex]) || 0) + 1);
+          version[key] = parts.join(".");
+          fs.writeFileSync(file, JSON.stringify(version, null, 2) + "\n");
+          console.log(key + "=" + version[key]);
+          NODE
+
+      - name: Commit dist version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version.json
+          git commit -m "chore: bump dist version [skip ci]"
+          git push origin HEAD:master
