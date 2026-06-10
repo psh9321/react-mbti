@@ -1,22 +1,36 @@
-import { useResultHook } from "@/entities/result/hook/useResultHook";
 import { Share2 } from "lucide-react";
+
+import { useResultHook } from "@/entities/result/hook/useResultHook";
 
 export const BtnResultShared = () => {
 
     const { type, subTitle } = useResultHook();
 
     function OnClickShareKaKaoCallback() {
+        if (!type) return;
+
+        const mbti = type.toString();
+
         window.Kakao.Share.sendDefault({
             objectType: "feed",
             content: {
-                title: `MBTI 테스트 결과 : ${type?.toString()}`,
+                title: `MBTI 테스트 결과 : ${mbti}`,
                 description: `${subTitle}`,
-                imageUrl: `${window.location.origin}/mbti/${type?.toString()}.webp?v=1`,
+                imageUrl : `${window.location.origin}/mbti/${mbti.toLowerCase()}.webp?v=${new Date().toISOString()}`,
                 link: {
                     mobileWebUrl: window.location.href,
                     webUrl: window.location.href,
                 },
             },
+            // buttons: [
+            //     {
+            //         title: "자세히 보기",
+            //         link: {
+            //             mobileWebUrl: window.location.href,
+            //             webUrl: window.location.href,
+            //         },
+            //     },
+            // ],
         });
     }
     return (

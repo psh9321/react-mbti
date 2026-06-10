@@ -68,6 +68,14 @@ jobs:
           console.log(key + "=" + version[key]);
           NODE
 
+      - name: Create deploy info
+        run: |
+          printf 'commit=%s\nref=%s\nrun_id=%s\n' \
+            "${{ github.sha }}" \
+            "${{ github.ref_name }}" \
+            "${{ github.run_id }}" > .deploy-info
+          cat version.json >> .deploy-info
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -82,7 +90,7 @@ jobs:
 
       - name: Sync project to EC2
         run: |
-          rsync -az --delete \
+          rsync -azc --delete --itemize-changes \
             -e "ssh -i ~/.ssh/ec2_key.pem" \
             --exclude ".git" \
             --exclude ".github" \
@@ -101,9 +109,14 @@ jobs:
             export PATH="$HOME/.local/bin:$PATH"
             corepack enable --install-directory "$HOME/.local/bin"
             corepack prepare pnpm@10 --activate
+            echo "Remote deploy info:"
+            cat .deploy-info
             pnpm install --frozen-lockfile
             pnpm build
-            pnpm reload || pnpm start
+            pnpm exec pm2 startOrReload ecosystem.config.cjs --env production
+            pnpm exec pm2 save
+            pnpm exec pm2 list
+            node -e "fetch('http://127.0.0.1:3001/health').then(async r => { console.log(await r.text()); if (!r.ok) process.exit(1); })"
           EOF
 
       - name: Commit dist version
