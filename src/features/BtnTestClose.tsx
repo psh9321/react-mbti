@@ -1,17 +1,19 @@
 
 import { useState } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 import { ChevronLeft } from "lucide-react"
 
 import { Confirm } from "@/shared/ui/Popup";
-import { useQuestionMbtiHook } from "@/entities/question/mbti/hook/useQuestionMbtiHook";
-import { useQuestionSubPropensityHook } from "@/entities/question/sub/hook/useQuestionSubPropensityHook";
-import { useQuestionMbtiStore } from "@/entities/question/mbti/store/useQuestionMbtiStore";
+
 import { useNavigate } from "react-router-dom";
 
 export const BtnTestClose = () => {
 
     const [ isConfirm, SetIsConfirm ] = useState(false);
+
+    const queryClient = useQueryClient();
 
     const navigation = useNavigate();
 
@@ -19,14 +21,8 @@ export const BtnTestClose = () => {
         SetIsConfirm(!isConfirm)
     }
 
-    const mbti = useQuestionMbtiStore(state => state.mbti);
-
-    const { ClearQuestionMbti } = useQuestionMbtiHook();
-    const { ClearQuestionSubPropensity } = useQuestionSubPropensityHook(mbti);
-
     function CloseCallback() {
-        if(mbti) ClearQuestionSubPropensity();
-        ClearQuestionMbti();
+        queryClient.removeQueries({queryKey : ["question"]})
         navigation("/")
     }
 

@@ -23,6 +23,9 @@ importers:
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
+      fs:
+        specifier: 0.0.1-security
+        version: 0.0.1-security
       hono:
         specifier: ^4.12.24
         version: 4.12.24
@@ -1085,6 +1088,9 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+
+  fs@0.0.1-security:
+    resolution: {integrity: sha512-3XY9e1pP0CVEUCdj5BmfIZxRBTSDycnbqhIOGec9QYtmVH2fbLpj86CFWkrNOkt/Fvty4KZG5lTglL9j/gJ87w==}
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -2657,6 +2663,8 @@ snapshots:
   follow-redirects@1.16.0(debug@4.3.7):
     optionalDependencies:
       debug: 4.3.7
+
+  fs@0.0.1-security: {}
 
   fsevents@2.3.3:
     optional: true

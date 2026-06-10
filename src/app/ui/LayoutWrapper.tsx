@@ -3,6 +3,9 @@ import { Outlet } from "react-router-dom"
 
 import { QueryProvider } from "../Provider/QueryProvider"
 
+import version from "version"
+
+
 export const LayoutWrapper = () => {
 
     
@@ -14,8 +17,8 @@ export const LayoutWrapper = () => {
                         <Outlet/>
                     </div>     
                     <div id="portal-root"></div>
+                    <p className="sr-only">{version.DIST_VER}</p>
                 </div>
-                
             </QueryProvider>
         </>
     )
