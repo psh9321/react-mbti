@@ -11,7 +11,7 @@ export const BtnTestSubmit = ({ mbti } : BTN_SUB_PROPENSITE_SUBMIT) => {
 
     const navigation = useNavigate();
 
-    const { SubmitSubPropensity} = useQuestionSubPropensityHook(mbti);
+    const { SubmitSubPropensity } = useQuestionSubPropensityHook(mbti);
 
     function SubmitCallback() {
         const unCheckElement = document.querySelector(`[data-question-sub-propensity-check=false]`);

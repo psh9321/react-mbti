@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react"
+import { useShallow } from "zustand/shallow";
+
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { useQuestionMbtiStore } from "@/entities/question/mbti/store/useQuestionMbtiStore";
+
 import { FadeAnimation } from "@/shared/util/fadeAnimation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ResultPageLocationState = {
     isLoadingView?: boolean;
@@ -12,7 +18,14 @@ export const ResultPageLoadingView = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const queryClient = useQueryClient();
+
     const [ isVisible, SetIsVisible ] = useState<boolean>((location.state as ResultPageLocationState | null)?.isLoadingView ?? false);
+
+    const { SetMbti, SetCurrentIdx } = useQuestionMbtiStore(useShallow(state => ({
+        SetMbti : state.SetMbti,
+        SetCurrentIdx : state.SetCurrentIdx
+    })))
 
     const ref = useRef<HTMLParagraphElement>(null);
 
@@ -21,6 +34,11 @@ export const ResultPageLoadingView = () => {
         if (!isVisible) return;
 
         if (!ref.current) return;
+
+        SetMbti("");
+        SetCurrentIdx(0);
+        
+        queryClient.removeQueries({queryKey : ["question"]});
 
         window.scrollTo({top : 0});
 

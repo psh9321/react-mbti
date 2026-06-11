@@ -11,14 +11,14 @@ export const useQuestionMbtiHook = () => {
 
     const queryKey = ["question","mbti"];
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey,
-        queryFn : API_CLIENT_GET_QUESTION_MBTI
+        queryFn : API_CLIENT_GET_QUESTION_MBTI,
     });
 
     const { currentIdx, SetMbti } = useQuestionMbtiStore(useShallow(state => ({
         currentIdx : state.currentIdx,
-        SetMbti : state.SetMbti
+        SetMbti : state.SetMbti,
     })));
 
     function CheckQuestions(idx : number,is : boolean) {
@@ -60,17 +60,14 @@ export const useQuestionMbtiHook = () => {
             return acc;
         }, "") as MBTI.TYPE;
 
-        ClearQuestionMbti();
         SetMbti(result);
     }
-
-    function ClearQuestionMbti() { queryClient.removeQueries({queryKey : queryKey})}
 
     return {
         questions : data?.[currentIdx],
         currentIdx,
         CheckQuestions,
         SubmitMbtiTest,
-        ClearQuestionMbti
+        isLoading
     }
 }

@@ -1,5 +1,6 @@
 import { useQuestionMbtiHook } from "@/entities/question/mbti/hook/useQuestionMbtiHook";
 import { QuestionCheckBox } from "./ui/QuestionCheckBox";
+import { PeanutLoader } from "@/shared/ui/PeanutLoader";
 
 const imgs = [
     [ "enfj", "esfj", "enfp", "estp", "entj", "esfp", "entp" ], /** energy */
@@ -10,7 +11,9 @@ const imgs = [
 
 export const MbtiTestQuestionList = () => {
 
-    const { questions, currentIdx } = useQuestionMbtiHook();
+    const { questions, currentIdx, isLoading } = useQuestionMbtiHook();
+
+    if(isLoading) return <PeanutLoader/>
 
     return (
         <ul className="space-y-[20px]">

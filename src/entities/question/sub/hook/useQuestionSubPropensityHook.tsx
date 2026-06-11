@@ -7,10 +7,9 @@ export const useQuestionSubPropensityHook = (mbti : MBTI.TYPE) => {
 
     const queryKey = ["question","subPropensity"];
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey,
         queryFn : () => API_CLIENT_GET_QUESTION_SUB_PROPENSITY(mbti),
-        enabled : !!mbti
     });
 
     function CheckQuestions(idx : number,is : boolean) {
@@ -39,17 +38,13 @@ export const useQuestionSubPropensityHook = (mbti : MBTI.TYPE) => {
             return acc;
         }, []).join("-");
 
-        ClearQuestionSubPropensity();
         return subPropensite
     }
 
-    function ClearQuestionSubPropensity() { queryClient.removeQueries({queryKey : queryKey}) }
-
-
     return { 
         questions : data,
+        isLoading,
         CheckQuestions,
         SubmitSubPropensity,
-        ClearQuestionSubPropensity
     }
 }

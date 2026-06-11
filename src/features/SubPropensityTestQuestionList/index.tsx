@@ -1,6 +1,9 @@
+import { useEffect } from "react";
+
 import { useQuestionSubPropensityHook } from "@/entities/question/sub/hook/useQuestionSubPropensityHook"
 import { QuestionCheckBox } from "./ui/QuestionCheckBox";
-import { useEffect } from "react";
+
+import { PeanutLoader } from "@/shared/ui/PeanutLoader";
 
 interface SUB_PROPENSITY_TEST_QUESTION_LIST {
     mbti : MBTI.TYPE
@@ -8,11 +11,13 @@ interface SUB_PROPENSITY_TEST_QUESTION_LIST {
 
 export const SubPropensityTestQuestionList = ( { mbti } : SUB_PROPENSITY_TEST_QUESTION_LIST ) => {
 
-    const { questions } = useQuestionSubPropensityHook(mbti);
+    const { questions, isLoading } = useQuestionSubPropensityHook(mbti);
 
     useEffect(() => {
         window.scrollTo({top : 0, behavior : "smooth"})
     },[])
+
+    if(isLoading) return <PeanutLoader/>
 
     return (
         <ul className="space-y-[20px]">
