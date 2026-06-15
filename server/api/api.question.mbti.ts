@@ -8,7 +8,7 @@ export async function API_SERVER_GET_QUESTION_MBTI() {
         for(const key in mbtiQuestion) {
             const questions = mbtiQuestion[key as MBTI.TYPE_KEY] as QUESTION.ITEM[];
 
-            const shuffledArr = GetSuffleQuestion(questions, 7);
+            const shuffledArr = GetSuffleQuestion(questions, 15);
 
             shuffledArr.forEach(el => el["is"] = null);
 

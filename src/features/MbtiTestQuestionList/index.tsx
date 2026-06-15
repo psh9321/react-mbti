@@ -3,10 +3,10 @@ import { QuestionCheckBox } from "./ui/QuestionCheckBox";
 import { PeanutLoader } from "@/shared/ui/PeanutLoader";
 
 const imgs = [
-    [ "enfj", "esfj", "enfp", "estp", "entj", "esfp", "entp" ], /** energy */
-    [ "istj", "estj", "isfj", "esfj", "istp", "estp", "isfp" ], /** recognition */
-    [ "intj", "entj", "intp", "entp", "istp", "estj", "estp" ], /** judgment */
-    [ "intj", "entj", "intp", "entp", "istp", "estj", "estp" ] /** life */
+    [ "enfj", "esfj", "enfp", "estp", "entj", "esfp", "entp", "estj", "enfj", "esfj", "enfp", "estp", "entj", "esfp", "entp" ], /** energy */
+    [ "istj", "estj", "isfj", "esfj", "istp", "estp", "isfp", "esfp", "istj", "estj", "isfj", "esfj", "istp", "estp", "isfp" ], /** recognition */
+    [ "intj", "entj", "intp", "entp", "istp", "estj", "estp", "istj", "intj", "entj", "intp", "entp", "istp", "estj", "estp" ], /** judgment */
+    [ "intj", "entj", "istj", "estj", "infj", "enfj", "isfj", "esfj", "intj", "entj", "istj", "estj", "infj", "enfj", "isfj" ] /** life */
 ]
 
 export const MbtiTestQuestionList = () => {
