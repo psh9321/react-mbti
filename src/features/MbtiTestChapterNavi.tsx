@@ -21,9 +21,12 @@ export const MbtiTestChapterNavi = () => {
     function NextChapterCallback() {
         if(!questions) return
 
-        const unCheckElement = document.querySelector(`[data-question-mbti-check=false]`);
+        const unCheckElements = document.querySelectorAll(`[data-question-mbti-check=false]`);
 
-        if(unCheckElement) return unCheckElement.scrollIntoView({block : "center", behavior : "smooth"});
+        if(unCheckElements.length > 0) {
+            unCheckElements.forEach(el => el.parentElement?.classList.add("unchecked"))
+            return unCheckElements[0].scrollIntoView({block : "center", behavior : "smooth"});
+        }
 
         if(currentIdx === 3) {
             MbtiTestCompleteCallback();

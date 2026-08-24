@@ -29,3 +29,9 @@ body {
 button {
     cursor: pointer;
 }
+
+/* 체크 하지않고 다음단계로 넘어가려 할시 미체크 항목 UI CSS 처리 */
+.unchecked {
+    background-color: #FFF9F6;
+    border-color: #C9685B;
+}

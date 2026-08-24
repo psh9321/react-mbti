@@ -14,7 +14,14 @@ export const QuestionCheckBox = ( { is, idx, mbti } : QUESTION_CHECK_BOX) => {
     const checkBoxRef = useRef<HTMLDivElement>(null);
 
     function CheckCallback(chk : boolean) {
+
+        if(!checkBoxRef.current) return 
+
+        const checkBox = checkBoxRef.current;
+        
         CheckQuestions(idx, chk);
+
+        if(checkBox.parentElement?.classList.contains("unchecked")) checkBox.parentElement?.classList.remove("unchecked");
 
         checkBoxRef?.current?.scrollIntoView({ block : "center", behavior : "smooth" });
     }

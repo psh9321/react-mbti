@@ -8,7 +8,6 @@ import version from "version"
 
 export const LayoutWrapper = () => {
 
-    
     return (
         <>
             <QueryProvider>
