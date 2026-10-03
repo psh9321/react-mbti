@@ -174,14 +174,12 @@ jobs:
             --arg url "$run_url" \
             --arg repository "$GITHUB_REPOSITORY" \
             --arg branch "$REF_NAME" \
-            --arg commit "${GITHUB_SHA:0:7}" \
             --arg test "$TEST_RESULT" \
             --arg deploy "$DEPLOY_RESULT" \
             '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: $description, color: $color, url: $url, fields: [
               {name: "실행 로그", value: $url},
               {name: "저장소", value: $repository},
               {name: "브랜치", value: $branch, inline: true},
-              {name: "커밋", value: $commit, inline: true},
               {name: "테스트", value: $test, inline: true},
               {name: "배포", value: $deploy, inline: true}
             ]}]}')

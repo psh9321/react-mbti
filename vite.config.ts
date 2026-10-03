@@ -16,8 +16,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve : {
       alias : {
-        "@" : path.resolve(__dirname, "src"),
-        version : path.resolve(__dirname, "version.json")
+        "@" : path.resolve(__dirname, "src")
       }
     },
 
