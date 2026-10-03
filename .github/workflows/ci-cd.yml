@@ -112,16 +112,6 @@ jobs:
           cd -- "$1"
           sudo -n git rev-parse --is-inside-work-tree
           [[ "$(sudo -n git branch --show-current)" == master ]]
-          # 이전 서버에서 변경된 version.json이 업데이트를 막지 않도록 백업한다.
-          if sudo -n git cat-file -e HEAD:version.json 2>/dev/null; then
-            if ! sudo -n git diff --quiet HEAD -- version.json; then
-              version_backup_dir=$(sudo -n mktemp -d /tmp/react-mbti-version.XXXXXX)
-              sudo -n git diff --binary HEAD -- version.json \
-                | sudo -n tee "$version_backup_dir/version.patch" > /dev/null
-              echo "version.json 변경 백업: $version_backup_dir/version.patch"
-              sudo -n git restore --source=HEAD --staged --worktree -- version.json
-            fi
-          fi
           sudo -n env GIT_TERMINAL_PROMPT=0 git pull --ff-only origin master
           sudo -n env "PATH=$PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm --version
           sudo -n env "PATH=$PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm install --frozen-lockfile
@@ -161,15 +151,21 @@ jobs:
           payload=$(jq -n \
             --arg title "$title" \
             --arg description "$description" \
+            --arg message "$(jq -r ' .head_commit.message // "커밋 메시지 없음" ' "$GITHUB_EVENT_PATH")" \
+            --arg author "$(jq -r --arg fallback "$GITHUB_ACTOR" '.head_commit.author.username // .head_commit.author.name // $fallback' "$GITHUB_EVENT_PATH")" \
+            --arg commit "${GITHUB_SHA:0:7}" \
+            --arg commit_url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA" \
             --argjson color "$color" \
             --arg url "$run_url" \
             --arg repository "$GITHUB_REPOSITORY" \
             --arg branch "$REF_NAME" \
             --arg test "$TEST_RESULT" \
             --arg deploy "$DEPLOY_RESULT" \
-            '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: $description, color: $color, url: $url, fields: [
+            '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: (($description + "\n\n**커밋 메시지**\n" + $message) | .[0:4096]), color: $color, url: $url, fields: [
               {name: "실행 로그", value: $url},
               {name: "저장소", value: $repository},
+              {name: "커밋", value: ("[" + $commit + "](" + $commit_url + ")"), inline: true},
+              {name: "커밋 작성자", value: ($author | .[0:1024]), inline: true},
               {name: "브랜치", value: $branch, inline: true},
               {name: "테스트", value: $test, inline: true},
               {name: "배포", value: $deploy, inline: true}
@@ -219,15 +215,21 @@ jobs:
           payload=$(jq -n \
             --arg title "$title" \
             --arg description "$description" \
+            --arg message "$(jq -r ' .head_commit.message // "커밋 메시지 없음" ' "$GITHUB_EVENT_PATH")" \
+            --arg author "$(jq -r --arg fallback "$GITHUB_ACTOR" '.head_commit.author.username // .head_commit.author.name // $fallback' "$GITHUB_EVENT_PATH")" \
+            --arg commit "${GITHUB_SHA:0:7}" \
+            --arg commit_url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA" \
             --argjson color "$color" \
             --arg url "$run_url" \
             --arg repository "$GITHUB_REPOSITORY" \
             --arg branch "$REF_NAME" \
             --arg test "$TEST_RESULT" \
             --arg deploy "$DEPLOY_RESULT" \
-            '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: $description, color: $color, url: $url, fields: [
+            '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: (($description + "\n\n**커밋 메시지**\n" + $message) | .[0:4096]), color: $color, url: $url, fields: [
               {name: "실행 로그", value: $url},
               {name: "저장소", value: $repository},
+              {name: "커밋", value: ("[" + $commit + "](" + $commit_url + ")"), inline: true},
+              {name: "커밋 작성자", value: ($author | .[0:1024]), inline: true},
               {name: "브랜치", value: $branch, inline: true},
               {name: "테스트", value: $test, inline: true},
               {name: "배포", value: $deploy, inline: true}
