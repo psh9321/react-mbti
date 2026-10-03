@@ -1,0 +1,10 @@
+{
+  "extends": "../../server/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "paths": { "@/*": ["../../server/*"] }
+  },
+  "include": ["./**/*.ts", "../../server/**/*.ts", "../../types"]
+}
