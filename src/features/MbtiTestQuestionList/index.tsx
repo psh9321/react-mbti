@@ -21,7 +21,7 @@ export const MbtiTestQuestionList = () => {
                 (questions as QUESTION.ITEM[])?.map((el, i) => {
                     return (
                         <li className="flex flex-wrap p-[20px] bg-[#FEFEFB] border border-color-sub rounded-[10px]" key={`${String(el["type"])}-테스트문항-${i}`}>
-                            <img className="[@media(max-width:420px)]:w-[70px] w-[90px]" src={`/mbti/${imgs[currentIdx][i]}.webp`} alt="" />
+                            <img className="[@media(max-width:420px)]:w-[70px] w-[90px]" src={`/mbti/${imgs[currentIdx][i]}.webp`} alt="동물 이미지" />
                             <h3 className="[@media(max-width:420px)]:text-[0.9rem] [@media(max-width:420px)]:w-[calc(100%-80px)] w-[calc(100%-100px)] ml-[10px] mb-[20px] text-[1.1rem] break-keep">{el["contents"]}</h3>
                             <QuestionCheckBox idx={i} is={el["is"]} />
                         </li>

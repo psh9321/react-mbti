@@ -1,6 +1,4 @@
 
-import { useEffect } from "react";
-
 import { Lightbulb } from "lucide-react"
 
 import { CurrentTestBanner } from "@/features/CurrentTestBanner";
@@ -8,15 +6,6 @@ import { TestQuestionBox } from "@/widgets/TestQuestionBox";
 import { TestPageHeader } from "@/widgets/TestPageHeader";
 
 export const TestPageView = () => {
-
-    useEffect(() => {
-        if(window.scrollY > 0) {
-            window.scrollTo({
-                top : 0,
-                behavior : "smooth"
-            })
-        }
-    },[])
 
     return (
         <div className="px-[40px]`">

@@ -17,7 +17,8 @@ export const useResultHook = () => {
     });
 
     return {
+        type : data?.mbtiInfo.type,
+        subPropensityInfo : data?.subPropensityInfo,
         ...data?.mbtiInfo,
-        subPropensityInfo : data?.subPropensityInfo
     }
 }

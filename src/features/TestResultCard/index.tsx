@@ -27,7 +27,7 @@ export const TestResultCard = () => {
                 backgroundColor : color
             }} className={`inline-block p-[2px_30px] text-[#fff] text-[1.8rem] font-[main] rounded-[50px]`}>{type?.toString()}</p>
             <div className="flex justify-center items-center w-full bg-cover bg-center bg-[url('/mbti-bg.png')]">
-                <img className="[@media(max-width:490px)]:w-[40vw]" src={`/mbti/${type?.toString().toLowerCase()}.webp`} alt="" />
+                <img className="[@media(max-width:490px)]:w-[40vw]" src={`/mbti/${type?.toString().toLowerCase()}.webp`} alt={`${animal} 이미지`} />
             </div>
             <dl className="text-center">
                 <dt className="text-[1.6rem]">{animal}</dt>

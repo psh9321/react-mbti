@@ -1,11 +1,21 @@
+import { useEffect } from "react";
 
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 
 import { QueryProvider } from "../Provider/QueryProvider"
 
-
-
 export const LayoutWrapper = () => {
+
+    const location = useLocation();
+    
+    useEffect(() => {
+        if(window.scrollY > 0) {
+            window.scrollTo({
+                top : 0,
+                behavior : "smooth"
+            })
+        }
+    },[location.pathname])
 
     return (
         <>

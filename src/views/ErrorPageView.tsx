@@ -18,7 +18,7 @@ const ErrorPageView = () => {
             <h1 className="block mb-[30px] text-[#7a5a1d] text-[2rem] font-[700] [@media(max-width:499px)]:text-[1.7rem]">길을 잃었어요.</h1>
             <p>주소가 변경되었거나 삭제된 페이지일 수 있어요.</p>
             <p>홈으로 돌아가 다시 시작해 주세요.</p>
-            <img className="my-[30px] [@media(max-width:499px)]:w-[calc(100%-20px)]" src={"/error.webp"} alt="에러 페이지" />
+            <img className="my-[30px] [@media(max-width:499px)]:w-[calc(100%-20px)]" src={"/error.webp"} alt="에러 페이지 이미지" />
             <ul className="
                 flex justify-center items-center space-x-[20px]
                 [&>li>a]:inline-block

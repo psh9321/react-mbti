@@ -8,6 +8,7 @@ import { ResultPageLoadingView } from "@/features/ResultPageLoadingView";
 import { TestResultInfo } from "@/features/TestResultInfo";
 
 import { KakaoInitializer } from "@/script/KakaoInitializer";
+import { TestResultSetLatest } from "@/features/TestResultSetLatest";
 
 export const ResultPageView = () => {
 
@@ -15,6 +16,7 @@ export const ResultPageView = () => {
         <>
             
             <KakaoInitializer/>
+            <TestResultSetLatest/>
             <ResultPageLoadingView/>
             
             <h1 className="sr-only">테스트 결과 페이지</h1>

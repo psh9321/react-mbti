@@ -3,15 +3,11 @@ import { useShallow } from "zustand/shallow";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 import { useQuestionMbtiStore } from "@/entities/question/mbti/store/useQuestionMbtiStore";
 
 import { FadeAnimation } from "@/shared/util/fadeAnimation";
-import { useQueryClient } from "@tanstack/react-query";
-
-type ResultPageLocationState = {
-    isLoadingView?: boolean;
-    [key: string]: unknown;
-}
 
 export const ResultPageLoadingView = () => {
 
@@ -20,7 +16,7 @@ export const ResultPageLoadingView = () => {
 
     const queryClient = useQueryClient();
 
-    const [ isVisible, SetIsVisible ] = useState<boolean>((location.state as ResultPageLocationState | null)?.isLoadingView ?? false);
+    const [ isVisible, SetIsVisible ] = useState<boolean>((location.state as RESULT_PAGE_LOCATION_STATE | null)?.isLoadingView ?? false);
 
     const { SetMbti, SetCurrentIdx } = useQuestionMbtiStore(useShallow(state => ({
         SetMbti : state.SetMbti,
@@ -59,7 +55,7 @@ export const ResultPageLoadingView = () => {
                             SetIsVisible(false);
 
                             const nextState = {
-                                ...((location.state as ResultPageLocationState | null) ?? {}),
+                                ...((location.state as RESULT_PAGE_LOCATION_STATE | null) ?? {}),
                             };
 
                             delete nextState.isLoadingView;
