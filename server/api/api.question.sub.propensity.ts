@@ -15,7 +15,7 @@ export async function API_SERVER_GET_QUESTION_SUB_PROPENSITY(mbti : MBTI.TYPE) {
 
     }
     catch(err) { 
-        console.log(err);
+        console.log(err, "API_SERVER_GET_QUESTION_SUB_PROPENSITY error");
         throw err;
     }
 }

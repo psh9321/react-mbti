@@ -8,7 +8,7 @@ export async function API_CLIENT_GET_QUESTION_MBTI() {
         return result["data"]
     }
     catch(err) { 
-        console.log(err);
+        console.log("API_CLIENT_GET_QUESTION_MBTI error", err);
         throw err;
     }
 }

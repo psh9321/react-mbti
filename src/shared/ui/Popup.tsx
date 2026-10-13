@@ -1,6 +1,7 @@
 import { X, ChevronRight } from 'lucide-react';
 
 import { Portal } from './Portal';
+import { useLayoutEffect } from 'react';
 
 interface POPUP_WRAPPER extends LAYOUT_CHILD {
     cancelCallback : () => void
@@ -36,6 +37,14 @@ interface CONFIRM {
 }
 
 export const Confirm = ({ title, msg, submitTxt, cancelTxt, submitCallback, cancelCallback } : CONFIRM) => {
+
+    useLayoutEffect(()=> {
+        document.body.style.overflow = "hidden"
+
+        return () => {
+            document.body.style.overflow = ""
+        }
+    },[])
     
     return (
         <PopupWrapper cancelCallback={cancelCallback}>

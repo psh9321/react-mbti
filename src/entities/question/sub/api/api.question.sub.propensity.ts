@@ -8,7 +8,7 @@ export async function API_CLIENT_GET_QUESTION_SUB_PROPENSITY(mbti : MBTI.TYPE) {
         return result["data"] as QUESTION.ITEM[]
     }
     catch(err) { 
-        console.log(err);
+        console.log("API_CLIENT_GET_QUESTION_SUB_PROPENSITY error",err);
         throw err;
     }
 }

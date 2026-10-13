@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 import { Outlet, useLocation } from "react-router-dom"
 
@@ -8,11 +8,11 @@ export const LayoutWrapper = () => {
 
     const location = useLocation();
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(window.scrollY > 0) {
             window.scrollTo({
                 top : 0,
-                behavior : "smooth"
+                behavior: "instant",
             })
         }
     },[location.pathname])

@@ -19,7 +19,7 @@ export async function API_SERVER_GET_QUESTION_MBTI() {
         
     }
     catch(err) { 
-        console.log(err, "$$$");
+        console.log(err, "API_SERVER_GET_QUESTION_MBTI error");
         throw err;
     }
 }

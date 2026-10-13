@@ -3,7 +3,7 @@ import subPropensity from "@/data/subPropensity";
 
 export async function API_SERVER_GET_RESULT_MBTI(type : MBTI.TYPE, sub : string) {
     try {
-console.log(sub,"##")
+
         const VALID_SUB_KEYS : SUB_PROPENSITY.TYPE_KEY[] = ["cognitive", "energetic", "expressive", "social", "anxious", "restrained", "thinking"];
 
         const subParams : SUB_PROPENSITY.TYPE_KEY[] = sub
@@ -29,7 +29,7 @@ console.log(sub,"##")
         }
     }
     catch(err) { 
-        console.log(err);
+        console.log(err, "API_SERVER_GET_RESULT_MBTI error");
         throw err;
     }
 }

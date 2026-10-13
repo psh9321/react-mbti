@@ -12,7 +12,7 @@ export async function API_CLIENT_GET_RESULT_MBTI(mbti : MBTI.TYPE, queryString :
         return result["data"] as RESULT_ITEM
     }
     catch(err) { 
-        console.log(err);
+        console.log("API_CLIENT_GET_RESULT_MBTI error",err);
         throw err;
     }
 }
