@@ -32,7 +32,7 @@ export const BtnTestClose = () => {
                 <ChevronLeft size={30}/>
             </button>
             {
-                isConfirm && <Confirm title="테스트 종료하기" msg="진행 된 테스트 결과는 저장 되지 않습니다. 홈으로 가시겠습니까?" submitTxt="종료하기" cancelCallback={OnClickToggleConfirmCallback} submitCallback={CloseCallback}/>
+                isConfirm && <Confirm title="테스트 종료하기" msg="진행 중이던 테스트 내용은 저장 되지 않습니다. 홈으로 가시겠습니까?" submitTxt="종료하기" cancelCallback={OnClickToggleConfirmCallback} submitCallback={CloseCallback}/>
             }
         </>
     )
