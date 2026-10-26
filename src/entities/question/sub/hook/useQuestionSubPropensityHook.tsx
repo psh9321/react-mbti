@@ -10,7 +10,14 @@ export const useQuestionSubPropensityHook = (mbti : MBTI.TYPE) => {
     const { data, isLoading } = useQuery({
         queryKey,
         queryFn : () => API_CLIENT_GET_QUESTION_SUB_PROPENSITY(mbti),
+        enabled : !!mbti
     });
+
+    const totalQuestions = data?.length??0;
+
+    const checkedQuestions = data?.filter(question => typeof question.is === "boolean").length??0;
+
+    const progressPercent = totalQuestions > 0 ? Math.round((checkedQuestions / totalQuestions) * 100) : 0;
 
     function CheckQuestions(idx : number,is : boolean) {
         queryClient.setQueryData<QUESTION.ITEM[]>(queryKey, prev => {
@@ -42,6 +49,9 @@ export const useQuestionSubPropensityHook = (mbti : MBTI.TYPE) => {
     }
 
     return { 
+        checkedQuestions,
+        totalQuestions,
+        progressPercent,
         questions : data,
         isLoading,
         CheckQuestions,

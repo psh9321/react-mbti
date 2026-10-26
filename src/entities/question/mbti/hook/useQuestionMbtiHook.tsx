@@ -21,6 +21,12 @@ export const useQuestionMbtiHook = () => {
         SetMbti : state.SetMbti,
     })));
 
+    const totalQuestions = data?.flat().length??0;
+
+    const checkedQuestions = data?.flat().filter(question => typeof question.is === "boolean").length??0;
+
+    const progressPercent = totalQuestions > 0 ? Math.round((checkedQuestions / totalQuestions) * 100) : 0;
+
     function CheckQuestions(idx : number,is : boolean) {
         queryClient.setQueryData<QUESTION.ITEM[][]>(queryKey, prev => {
             if (!prev) return prev;
@@ -64,6 +70,9 @@ export const useQuestionMbtiHook = () => {
     }
 
     return {
+        checkedQuestions,
+        totalQuestions,
+        progressPercent,
         questions : data?.[currentIdx],
         currentIdx,
         CheckQuestions,

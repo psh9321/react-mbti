@@ -3,6 +3,8 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { TestPageHeader } from "@/widgets/TestPageHeader";
+import { TestPageBanner } from "@/widgets/TestPageBanner";
 import { TestQuestionBox } from "@/widgets/TestQuestionBox";
 import { TestResultCard } from "@/features/TestResultCard";
 import { TestResultInfo } from "@/features/TestResultInfo";
@@ -11,6 +13,11 @@ import { useQuestionMbtiStore } from "@/entities/question/mbti/store/useQuestion
 import { API_CLIENT_GET_QUESTION_MBTI } from "@/entities/question/mbti/api/api.question.mbti";
 import { API_CLIENT_GET_QUESTION_SUB_PROPENSITY } from "@/entities/question/sub/api/api.question.sub.propensity";
 import { API_CLIENT_GET_RESULT_MBTI } from "@/entities/result/api/api.result";
+
+const viewport = vi.hoisted(() => ({ isResize: false }));
+vi.mock("@parksuhyun9321/use-media-query", () => ({
+    default: () => ({ isResize: viewport.isResize }),
+}));
 
 vi.mock("@/entities/question/mbti/api/api.question.mbti");
 vi.mock("@/entities/question/sub/api/api.question.sub.propensity");
@@ -70,7 +77,7 @@ function ResultScreen() {
     );
 }
 
-function renderFlow(entry = "/test") {
+function renderFlow(entry = "/test", showProgress = false) {
     const client = new QueryClient({
         defaultOptions: {
             queries: { retry: false, staleTime: Infinity, gcTime: 0 },
@@ -81,7 +88,12 @@ function renderFlow(entry = "/test") {
         <QueryClientProvider client={client}>
             <MemoryRouter initialEntries={[entry]}>
                 <Routes>
-                    <Route path="/test" element={<TestQuestionBox />} />
+                    <Route path="/test" element={
+                        <>
+                            {showProgress && <><TestPageHeader /><TestPageBanner /></>}
+                            <TestQuestionBox />
+                        </>
+                    } />
                     <Route path="/result/:type" element={<ResultScreen />} />
                 </Routes>
             </MemoryRouter>
@@ -101,6 +113,7 @@ async function answerAll(
 }
 
 beforeEach(() => {
+    viewport.isResize = false;
     useQuestionMbtiStore.setState({ mbti: "", currentIdx: 0 });
     vi.mocked(API_CLIENT_GET_QUESTION_MBTI).mockResolvedValue(makeQuestions());
     vi.mocked(API_CLIENT_GET_QUESTION_SUB_PROPENSITY).mockResolvedValue(
@@ -173,6 +186,71 @@ describe("테스트 문항 불러오기 및 체크", () => {
                 .map((item) => item.is),
         ).toEqual([true, null, null, null, null]);
     });
+});
+
+describe("검사 진행률", () => {
+    it.each([false, true])(
+        "응답 변경, 챕터 이동, 검사 전환 시 진행률이 갱신된다 (모바일: %s)",
+        async (isMobile) => {
+            viewport.isResize = isMobile;
+            const { user } = renderFlow("/test", true);
+
+            async function expectProgress(checked: number, total: number, percent: number) {
+                if (isMobile) {
+                    const header = screen.getByRole("banner");
+                    await waitFor(() => expect(header).toHaveTextContent(
+                        `${checked}개 완료 / ${total}개 (${percent}%)`,
+                    ));
+                    expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+                } else {
+                    await waitFor(() => {
+                        const bar = screen.getByRole("progressbar", { name: "문항 응답 진행률" });
+                        expect(bar).toHaveAttribute("aria-valuenow", String(checked));
+                        expect(bar).toHaveAttribute("aria-valuemax", String(total));
+                        expect(bar).toHaveAttribute("aria-valuetext", `${total}개 중 ${checked}개 응답 완료`);
+                        expect(bar.firstElementChild).toHaveStyle({ width: `${percent}%` });
+                        expect(bar.parentElement).toHaveTextContent(
+                            `${checked}개 완료 / ${total}개 (${percent}%)`,
+                        );
+                    });
+                    expect(screen.getByRole("banner")).not.toHaveTextContent("개 완료");
+                }
+            }
+
+            const row = (await screen.findByText("energy 문항 1")).closest("li")!;
+            await expectProgress(0, 12, 0);
+            expect(API_CLIENT_GET_QUESTION_SUB_PROPENSITY).not.toHaveBeenCalled();
+            await user.click(within(row).getByRole("button", { name: "아니오" }));
+            await expectProgress(1, 12, 8);
+            await user.click(within(row).getByRole("button", { name: "예" }));
+            await expectProgress(1, 12, 8);
+            await answerAll(user);
+            await expectProgress(3, 12, 25);
+            await user.click(screen.getByRole("button", { name: "다음" }));
+            await screen.findByText("recognition 문항 1");
+            await expectProgress(3, 12, 25);
+            await user.click(screen.getByRole("button", { name: "이전" }));
+            await screen.findByText("energy 문항 1");
+            await expectProgress(3, 12, 25);
+            await user.click(screen.getByRole("button", { name: "다음" }));
+
+            for (const [index, type] of ["recognition", "judgment", "life"].entries()) {
+                await screen.findByText(`${type} 문항 1`);
+                await answerAll(user);
+                await expectProgress((index + 2) * 3, 12, (index + 2) * 25);
+                await user.click(screen.getByRole("button", { name: "다음" }));
+            }
+
+            const subRow = (await screen.findByText("하위유형 문항 1")).closest("li")!;
+            await expectProgress(0, 5, 0);
+            await user.click(within(subRow).getByRole("button", { name: "아니오" }));
+            await expectProgress(1, 5, 20);
+            await user.click(within(subRow).getByRole("button", { name: "예" }));
+            await expectProgress(1, 5, 20);
+            await answerAll(user, "아니오");
+            await expectProgress(5, 5, 100);
+        },
+    );
 });
 
 describe("MBTI 챕터 이동", () => {

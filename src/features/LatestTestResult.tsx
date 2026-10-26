@@ -36,8 +36,8 @@ export const LatestTestResult = () => {
     return (
         <section className="mt-[30px] py-[10px] px-[20px] bg-[#FEFAED] border border-color-sub rounded-[10px]">
             <h2 className="flex items-center gap-[10px] mb-[20px] text-color-sub text-[1.2rem]"><Clock3/> 최근에 테스트한 결과</h2>
-            <div className="relative ] min-[550px]:flex min-[550px]:gap-[10px">
-                <img className="size-[100px]" src={`/mbti/${mbti.toLowerCase()}.webp`} alt={`${mbti}와 어울리는 동물 이미지`} />
+            <div className="relative min-[550px]:flex min-[550px]:justify-between min-[550px]:gap-[10px">
+                <img className="size-[120px]" src={`/mbti/${mbti.toLowerCase()}.webp`} alt={`${mbti}와 어울리는 동물 이미지`} />
                 <div>
                     <dl>
                         <dt className="text-[0.8rem]">{latestItem.subTitle}</dt>
