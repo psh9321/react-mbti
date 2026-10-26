@@ -12,7 +12,7 @@ const SubPropensityTestProgressBox = lazy(() => import("@/features/Progress/SubP
 
 export const TestPageHeader = () => {
 
-    const { isResize } = useMediaQuery(1100);  
+    const { isResize } = useMediaQuery(1100,true);  
 
     const mbti = useQuestionMbtiStore(state => state.mbti);
     

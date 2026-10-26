@@ -15,7 +15,7 @@ const SubPropensityTestProgressBar = lazy(() => import("@/features/Progress/SubP
 
 export const TestPageBanner = () => {
 
-    const { isResize } = useMediaQuery(1100);
+    const { isResize } = useMediaQuery(1100, true);
 
     const mbti = useQuestionMbtiStore(state => state.mbti);
 
